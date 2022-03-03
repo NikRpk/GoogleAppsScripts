@@ -2,6 +2,7 @@
 // Usage as follows below:
 //   var range = sheet.getRange("A2:A").getValues();
 //   var lastRow = getLastRowSpecial(range);
+
 function getLastRowSpecial(range){
     var rowNum = 0;
     var blank = false;
