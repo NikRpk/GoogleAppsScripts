@@ -1,8 +1,8 @@
 // Small nice to know hacks
 
 // Start to every script nearly 
-var ss = SpreadsheetApp.getActive();
-var sheet = ss.getSheetByName("Sheet Name");
+    var ss = SpreadsheetApp.getActive();
+    var sheet = ss.getSheetByName("Sheet Name");
 
 // Clear some data , format, or validations
     sheet.getRange("A2:A").clearContent();
@@ -31,6 +31,8 @@ var sheet = ss.getSheetByName("Sheet Name");
   if ( alert == ui.Button.YES) {
 
 // Cycle through a loop with conditions
+// the try function makes sure that if there is an error, it doesn't stop right away
+// the following code, looks at the tab names of a google sheet and adds them to a list
     for (i = 0; i < 20; i++) {
         try {
           var sheetname = list[i].toString();

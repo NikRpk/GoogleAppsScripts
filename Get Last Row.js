@@ -1,7 +1,7 @@
 //function to find out the last row number of a range 
 // Usage as follows below:
-//   var range = sheet.getRange("A2:A").getValues();
-//   var lastRow = getLastRowSpecial(range);
+    var range = sheet.getRange("A2:A").getValues();
+    var lastRow = getLastRowSpecial(range);
 
 function getLastRowSpecial(range){
     var rowNum = 0;
@@ -16,4 +16,4 @@ function getLastRowSpecial(range){
         };
     };
     return rowNum;
-    };
+};
