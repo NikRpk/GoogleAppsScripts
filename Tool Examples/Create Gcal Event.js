@@ -1,3 +1,5 @@
+// This is a mini-tool that creates google calendar events based on the input from a google sheet
+
 // to be used in combination with the following google sheet that acts as an interface
 // https://docs.google.com/spreadsheets/d/1thw3SoUTNwsnjQt49hMWqk6B3knYFV_1ZvECO5T3mxA/edit#gid=0
 
