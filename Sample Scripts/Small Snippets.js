@@ -40,6 +40,17 @@
           sheet.getRange("H2:H").clearContent();
         } catch(error) {}
 
+// Arrays. These are 2 dimensional objects if you adapt them a little.
+// The format is [ ["a", "b"] ]  for a 1 row 2 column one
+// The format is [ ["a"], ["b"] ] for a 2 row 1 column one
+// When reading values from cells with getValues(), this is the format it ends up in
+// Use the push command to add to the array
+  var data = []
+  data.push([value1,value2,value3])
+  // or
+  data.push([value1],[value2],[value3])
+
+
 
 
 
