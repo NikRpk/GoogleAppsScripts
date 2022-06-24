@@ -12,6 +12,18 @@
 // Use this one to set the values of a range (e.g. with a copied range)
 // Use setvalue(X) to set everything in a range to the same value such as a timestamp
     sheet.getRange(starting_row, starting_column, number_of_rows, number_of_columns).setValues(data);
+// You can also put the information that you want to paste into an array beforehand and use the array to paste directly
+  var sheet_log = ss.getSheetByName("Log");
+  var rows = data.length;
+  var columns = data[0].length;
+  var range = sheet_log.getRange("A:A").getValues();
+  var row = getLastRowSpecial(range);
+  sheet_log.getRange(row + 1, 1, rows, columns).setValues(info)
+
+// To add data points to an array, you can use the push command. You can push individual items or other arrays as well (see second example below)
+    var data = [];
+    data.push("some random data")
+    data.push(["array data 1","array data 2"])
 
 // Find the current time & date 
     timestamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm:ss");
