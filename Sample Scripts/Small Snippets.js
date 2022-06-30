@@ -28,15 +28,6 @@
 // Find the current time & date 
     timestamp = Utilities.formatDate(new Date(), Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm:ss");
 
-// Popup box for the user to interact with and enter information
-// There are different types of popup boxes. Options for the buttons are "OK", "OK_CANCEL", 'YES_NO". "YES_NO_CANCEL" 
-// You can pair this with an if statement afterwards to execute code depending on the user's click or their input
-// You might see SpreadsheetApp.getUi().alert vs Browser.inputBox and they can perform similar functions except that browser is older and only works in sheets
-// Full explanation: https://spreadsheet.dev/pop-up-alert-messages-in-google-sheets
-// Different kinds of boxes: https://developers.google.com/apps-script/reference/base/browser
-    alert = SpreadsheetApp.getUi().alert("Header", "Button text\n\n These Ns start a new line", SpreadsheetApp.getUi().ButtonSet.OK);
-    input_box = Browser.inputBox('Title', 'Enter your name', Browser.Buttons.OK_CANCEL
-
 //Example of a check
   var ui = SpreadsheetApp.getUi();
   alert = ui.alert("Check", "Are you sure you want to create the event?", SpreadsheetApp.getUi().ButtonSet.YES_NO);
