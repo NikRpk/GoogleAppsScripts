@@ -1,4 +1,4 @@
-// This sets the 
+// This sets the theme colours for any spreadsheet where you run it!
 
 function setHF_ColourScheme() {
     var app = SpreadsheetApp;
