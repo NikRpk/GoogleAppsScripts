@@ -52,6 +52,7 @@ function setUpProperties() {
 function saveColour(list) {
   var app = SpreadsheetApp;
   var ss = app.getActiveSpreadsheet();
+  var counter = 0 
 
   for (key in list) {
     if (list[key] != '') {
@@ -59,6 +60,7 @@ function saveColour(list) {
       setThemeColour(key, list[key]);
       //Update the user properties
       setColourProperty(key, list[key]);
+      counter += 1
     };
   };
 
