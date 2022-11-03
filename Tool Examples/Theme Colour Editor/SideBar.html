@@ -1,0 +1,211 @@
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      .colourbox {
+        height: 10px;
+        width: 50px;
+        border: 1px solid grey;
+        border-radius: 10px;
+        padding: 5px;
+        background-color: red;
+        display: inline-block;
+      }
+      .box {
+        border: 2px solid grey;
+        border-radius: 10px;
+        padding: 5px;
+        position: relative;
+        margin-bottom: 10px;
+      }
+      .row {
+        display: flex;
+      }
+      .column {
+        flex: 33%;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+      .input {
+        width: 60px;
+        display: inline-block;
+      }
+      .btn {
+        display: inline-block;
+        margin-bottom: 0;
+        font-weight: normal;
+        text-align: center;
+        vertical-align: middle;
+        -ms-touch-action: manipulation;
+            touch-action: manipulation;
+        cursor: pointer;
+        background-image: none;
+        border: 1px solid transparent;
+        white-space: nowrap;
+        padding: 7px 12px;
+        font-size: 14px;
+        line-height: 1.42857143;
+        border-radius: 4px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+      .btn-warning {
+        color: #ffffff;
+        background-color: #4285f4;;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div>
+      <p>Please use the following fields to set the colours in Hexdecimal code (without the #).</p> 
+      <p>They will be saved for future use. The currently saved colours are displayed in the cells.</p>
+    </div>
+    <div class="box">
+      <div class="smallbox row">
+        <div class="column">
+          <font text-align="left">Text:</font>
+        </div>
+        <div class="column">
+          <input class="input" id="text" type="text" placeholder="<?= getColour("text") ?>">
+        </div>
+        <div class="column">
+          <div class="colourbox" style="background-color:#<?= getColour("text") ?>"></div>
+        </div>
+      </div>
+
+      <div class="smallbox row">
+        <div class="column">
+          <font text-align="left">Background:</font>
+        </div>
+        <div class="column">
+          <input class="input" id="background" type="text" placeholder="<?= getColour("background") ?>">
+        </div>
+        <div class="column">
+          <div class="colourbox" style="background-color:#<?= getColour("background") ?>"></div>
+        </div>
+      </div>
+
+      <div class="smallbox row">
+        <div class="column">
+          <font text-align="left">Accent 1:</font>
+        </div>
+        <div class="column">
+          <input class="input" id="accent1" type="text" placeholder="<?= getColour("accent1") ?>">
+        </div>
+        <div class="column">
+          <div class="colourbox" style="background-color:#<?= getColour("accent1") ?>"></div>
+        </div>
+      </div>
+
+      <div class="smallbox row">
+        <div class="column">
+          <font text-align="left">Accent 2:</font>
+        </div>
+        <div class="column">
+          <input class="input" id="accent2" type="text" placeholder="<?= getColour("accent2") ?>">
+        </div>
+        <div class="column">
+          <div class="colourbox" style="background-color:#<?= getColour("accent2") ?>"></div>
+        </div>
+      </div>
+
+      <div class="smallbox row">
+        <div class="column">
+          <font text-align="left">Accent 3:</font>
+        </div>
+        <div class="column">
+          <input class="input" id="accent3" type="text" placeholder="<?= getColour("accent3") ?>">
+        </div>
+        <div class="column">
+          <div class="colourbox" style="background-color:#<?= getColour("accent3") ?>"></div>
+        </div>
+      </div>
+
+      <div class="smallbox row">
+        <div class="column">
+          <font text-align="left">Accent 4:</font>
+        </div>
+        <div class="column">
+          <input class="input" id="accent4" type="text" placeholder="<?= getColour("accent4") ?>">
+        </div>
+        <div class="column">
+          <div class="colourbox" style="background-color:#<?= getColour("accent4") ?>"></div>
+        </div>
+      </div>
+
+      <div class="smallbox row">
+        <div class="column">
+          <font text-align="left">Accent 5:</font>
+        </div>
+        <div class="column">
+          <input class="input" id="accent5" type="text" placeholder="<?= getColour("accent5") ?>">
+        </div>
+        <div class="column">
+          <div class="colourbox" style="background-color:#<?= getColour("accent5") ?>"></div>
+        </div>
+      </div>
+
+      <div class="smallbox row">
+        <div class="column">
+          <font text-align="left">Accent 6:</font>
+        </div>
+        <div class="column">
+          <input class="input" id="accent6" type="text" placeholder="<?= getColour("accent6") ?>">
+        </div>
+        <div class="column">
+          <div class="colourbox" style="background-color:#<?= getColour("accent6") ?>"></div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <button type="button" class="btn btn-warning" onClick="grabtext()">Save Colours & Change Theme</button>
+      <br><br>
+      <input type="button" class="btn btn-warning" value="Close" style="background-color:grey" onclick="google.script.host.close()" />
+    </div>
+    
+    <script type="text/javascript">
+      function grabtext(){
+        var text = document.getElementById("text").value.toString(); 
+        var background = document.getElementById("background").value.toString(); 
+        var accent1 = document.getElementById("accent1").value.toString(); 
+        var accent2 = document.getElementById("accent2").value.toString(); 
+        var accent3 = document.getElementById("accent3").value.toString(); 
+        var accent4 = document.getElementById("accent4").value.toString(); 
+        var accent5 = document.getElementById("accent5").value.toString(); 
+        var accent6 = document.getElementById("accent6").value.toString();
+        var fields = [text, background, accent1, accent2, accent3, accent4, accent5, accent6];
+        var checker = /^#(?:[0-9a-f]{3}){1,2}$/i;  
+        var counter = 0;
+
+        for (item in fields) {
+          if ((checker.test("#"+fields[item]) === false) && (fields[item] !== '')) {
+            alert(fields[item] + " is an invalid colour. \n\nPlease either remove the # or check if this is a hexadecimal colour.")
+            break
+          }
+          else {
+            counter++
+          };
+        };
+        if (counter == fields.length) {
+          google.script.run.loadingAnimation();
+          google.script.run.saveColour({
+            "text":document.getElementById("text").value.toString(), 
+            "background":document.getElementById("background").value.toString(), 
+            "accent1":document.getElementById("accent1").value.toString(), 
+            "accent2":document.getElementById("accent2").value.toString(), 
+            "accent3":document.getElementById("accent3").value.toString(), 
+            "accent4":document.getElementById("accent4").value.toString(), 
+            "accent5":document.getElementById("accent5").value.toString(), 
+            "accent6":document.getElementById("accent6").value.toString()});
+          google.scrip.run.showSidebar();
+        }
+        else {
+          alert("No scripts ran.")
+        };
+      };
+    </script>
+  </body>
+</html>
