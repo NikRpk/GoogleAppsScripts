@@ -4,25 +4,20 @@ function onInstall(e) {
 
 //So that the add-on runs on each open
 function onOpen(e) {
-  var ui = SpreadsheetApp.getUi();
-  ui.createMenu('Change Theme')
-    .addItem('Set colours to theme', 'setTheme')
+  var ui = SpreadsheetApp.getUi()
+    .createAddonMenu()
+    .addItem('Set theme colours', 'setTheme')
     .addItem('Edit theme colours', 'showSidebar')
     .addToUi();
 };
-
-//Popup box to show the user that something is being done as the process can be a bit slow at times. 
-function loadingAnimation() {
-  SpreadsheetApp.getUi().alert('Starting.....\nIt might take a few seconds to run.');
-}
 
 //Runs the sidebar and builds this from the html template. 
 function showSidebar() {
   var html = HtmlService.createTemplateFromFile('SideBar')
   .evaluate()
-      .setTitle('Edit colours');
+    .setTitle('Edit colours');
   SpreadsheetApp.getUi()
-      .showSidebar(html);
+    .showSidebar(html);
 };
 
 //Pulls the user properties
@@ -105,4 +100,4 @@ function setColourProperty(type,colour) {
 function getColour(type) {
   var property = PropertiesService.getUserProperties().getProperty(type);
   return property;
-}; 
+};
