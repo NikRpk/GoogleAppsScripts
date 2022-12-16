@@ -2,6 +2,10 @@
 
 The aim of this add-on is to allow you to set the custom colours in your Google Sheet quickly and save these colours across all of your worksheets so that you don't have to manually input hexadecimal numbers each time you want to style a new sheet! 
 
+Please find the complete code used to create this add-on in the files in this repository. Feel free to copy or adapt it to fit your own custom needs. 
+
+You can install the add-on right `#0969DA` here. 
+
 # Frequently Asked Questions 
 
 If you do not find your issue here, please raise an issue [here](https://github.com/NikRpk/GoogleScripts/issues/new/choose) and I will try to answer it as fast as possible. 
