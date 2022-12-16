@@ -4,7 +4,7 @@ The aim of this add-on is to allow you to set the custom colours in your Google 
 
 Please find the complete code used to create this add-on in the files in this repository. Feel free to copy or adapt it to fit your own custom needs. 
 
-You can install the add-on right [here](https://letmegooglethat.com/?q=I+have+not+updated+the+link+yet.+Sorry+%3A) ). 
+You can install the add-on right [here](https://letmegooglethat.com/?q=I+have+not+updated+the+link+yet.+Sorry+%3A)+). 
 
 # Frequently Asked Questions 
 
