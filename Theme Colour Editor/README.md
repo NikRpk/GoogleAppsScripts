@@ -1,4 +1,5 @@
-#Theme Colour Editor - Google Add-On
+# Theme Colour Editor - Google Add-On
+
 The aim of this add-on is to allow you to set the custom colours in your Google Sheet quickly and save these colours across all of your worksheets so that you don't have to manually input hexadecimal numbers each time you want to style a new sheet! 
 
 # Frequently Asked Questions 
