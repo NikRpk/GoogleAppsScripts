@@ -60,6 +60,7 @@
 
   <body>
     <div>
+      <p>Welcome to the colour editor. Here you can set the custom colours for your sheet.</p>
       <p>Please use the following fields to set the colours in Hexdecimal code (without the #).</p> 
       <p>They will be saved for future use. The currently saved colours are displayed in the cells.</p>
     </div>
@@ -163,11 +164,14 @@
     <div>
       <button type="button" class="btn btn-warning" onClick="grabtext()">Save Colours & Change Theme</button>
       <br><br>
+      <button type="button" class="btn btn-warning" style="background-color:grey" onClick="window.open('https://github.com/NikRpk/GoogleScripts/blob/main/Theme%20Colour%20Editor/README.md','_blank')">Get Help</button>
+      <br><br>
       <input type="button" class="btn btn-warning" value="Close" style="background-color:grey" onclick="google.script.host.close()" />
     </div>
     
     <script type="text/javascript">
       function grabtext(){
+        //google.script.run.withSuccessHandler(onSuccess).withFailureHandler(onFailure).doSomething();
         var text = document.getElementById("text").value.toString(); 
         var background = document.getElementById("background").value.toString(); 
         var accent1 = document.getElementById("accent1").value.toString(); 
@@ -183,15 +187,15 @@
         for (item in fields) {
           if ((checker.test("#"+fields[item]) === false) && (fields[item] !== '')) {
             alert(fields[item] + " is an invalid colour. \n\nPlease either remove the # or check if this is a hexadecimal colour.")
-            break
+            break;
           }
           else {
             counter++
           };
         };
+        console.log("Checked " + counter + " items.")
         if (counter == fields.length) {
-          google.script.run.loadingAnimation();
-          google.script.run.saveColour({
+          var list = {
             "text":document.getElementById("text").value.toString(), 
             "background":document.getElementById("background").value.toString(), 
             "accent1":document.getElementById("accent1").value.toString(), 
@@ -199,11 +203,13 @@
             "accent3":document.getElementById("accent3").value.toString(), 
             "accent4":document.getElementById("accent4").value.toString(), 
             "accent5":document.getElementById("accent5").value.toString(), 
-            "accent6":document.getElementById("accent6").value.toString()});
-          google.scrip.run.showSidebar();
+            "accent6":document.getElementById("accent6").value.toString()
+          }
+          console.log(list);
+          google.script.run.saveColour(list);
         }
         else {
-          alert("No scripts ran.")
+          alert("No scripts ran.");
         };
       };
     </script>
