@@ -41,6 +41,16 @@ var response = ui.prompt(title, content,ui.ButtonSet.OK)
 var response = ui.prompt(title, content,ui.ButtonSet.OK_CANCEL)
 ```
 
+``` javascript
+//Example
+var ui = SpreadsheetApp.getUi();
+var var response = ui.prompt("Name", "What is your name?", ui.ButtonSet.YES_NO)
+
+// Would make a box (see screenshot below). 
+```
+![image](https://user-images.githubusercontent.com/49123781/208711234-52636426-30d2-4660-801e-9beaf0d93ce0.png)
+
+
 If you are using this often, you can create your own little function that takes title, content, and type as input. 
 ``` javascript
 function message(title, content, type) {
