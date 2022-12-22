@@ -1,9 +1,11 @@
-// instructions can be found here: https://medium.com/@willroman/auto-block-time-on-your-work-google-calendar-for-your-personal-events-2a752ae91dab
+// Credits go to Will Roman - https://medium.com/@willroman/auto-block-time-on-your-work-google-calendar-for-your-personal-events-2a752ae91dab
 
 function sync() {
+  var primary_cal = "CALENDAR_ID_1"
   var ids = [
-    "75c8a605d048754291388648490189efef3d2c73f9602899634ff71e0024834f@group.calendar.google.com", 
-    "nsropke@gmail.com"
+    "CALENDAR_ID_2", 
+    "CALENDAR_ID_3",
+    "CALENDAR_ID_4"
     ]
 
   for (id in ids) {
@@ -14,8 +16,7 @@ function sync() {
     enddate.setDate(today.getDate()+30); // how many days in advance to monitor and block off time
     var secondaryEvents = secondaryCal.getEvents(today,enddate);
 
-    //var primaryCal=CalendarApp.getCalendarById('c_0lt30tm9u4i8vfhnbtc3lo4urg@group.calendar.google.com');
-    var primaryCal=CalendarApp.getCalendarById('niklas.roepke@hellofresh.de');
+    var primaryCal=CalendarApp.getCalendarById(primary_cal);
 
     var primaryEvents=primaryCal.getEvents(today,enddate);
     Logger.log(primaryEvents)
@@ -51,13 +52,7 @@ function sync() {
         // alternative version below that copies the exact secondary event information into the primary calendar event
         // var newEvent = primaryCal.createEvent(evi.getTitle(),evi.getStartTime(),evi.getEndTime(), {location: evi.getLocation(), description: evi.getDescription()});  
         newEvent.removeAllReminders(); // so you don't get double notifications. Delete this if you want to keep the default reminders for your newly created primary calendar events
-      }
-    }
-  }
-
-
-  var id="nsropke@gmail.com"; // CHANGE - id of the secondary calendar to pull events from
-      
-  
-
-}
+      };
+    };
+  };
+};
