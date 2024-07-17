@@ -6,15 +6,6 @@ function onInstall(e) {
   onOpen(e);
 }
 
-function test() {
-  //var properties = {input_1: 'A2,1,1', input_2: 'D4,2,2', input_3: 'D8', input_4: 'V72'}
-  var sp = PropertiesService.getScriptProperties(); 
-  
-  Logger.log(sp.getProperties())
-
-  Logger.log(_getProperty('input_1'))
-}
-
 function onOpen(e) {
   ui.createMenu('Sensitivity Analysis')
     .addItem('Run.....', 'create')
