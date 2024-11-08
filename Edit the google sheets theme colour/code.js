@@ -1,18 +1,17 @@
-function test() {
-  var userProperties = PropertiesService.getUserProperties().getProperties();
-  var scriptProperties = PropertiesService.getScriptProperties().getProperties();
-
-  Logger.log("------ User -----");
-  Logger.log(userProperties);
-  Logger.log("------ Script ------")
-  Logger.log(scriptProperties)
-
-  setUpProperties_()
+// Set the default colour values. Currently set to the HelloFresh colour scheme
+const DEFAULT_SETTINGS = {
+  "text": "000000",
+  "background": "ffffff",
+  "accent1": "96dc14",
+  "accent2": "009646",
+  "accent3": "ff5f64",
+  "accent4": "d9d9d9",
+  "accent5": "00a0e6",
+  "accent6": "1464ff",
+  "hyperlink": "009646"
 };
 
-function deleteAll () {
-  PropertiesService.getUserProperties().deleteAllProperties();
-}
+var PROPERTIES = ["text", "background", "accent1", "accent2", "accent3", "accent4", "accent5", "accent6", "hyperlink"];
 
 function onInstall(e) {
   onOpen(e);
@@ -22,7 +21,7 @@ function onInstall(e) {
 function onOpen(e) {
   var ui = SpreadsheetApp.getUi()
     .createAddonMenu()
-    .addItem('Set theme colours TEST', 'setTheme')
+    .addItem('Set theme colours', 'setTheme')
     .addItem('Edit theme colours', 'showSidebar')
     .addItem('Reset to default', 'resetToDefault')
     .addToUi();
@@ -59,22 +58,19 @@ function setTheme() {
 
 function resetToDefault(sidebar) {
   // Reset the user properties and the document theme to the default (defined by the script properties)
-  var scriptProperties = PropertiesService.getScriptProperties();
   var userProperties = PropertiesService.getUserProperties();
   var ui = SpreadsheetApp.getUi();
-
-  // Define the keys you want to reset to their default values
-  var properties = ["text", "background", "accent1", "accent2", "accent3", "accent4", "accent5", "accent6"];
 
   var confirm = ui.alert("Confirm action", "Are you sure you want to reset your default colours?", ui.ButtonSet.YES_NO)
 
   if (confirm === ui.Button.NO) {
     return;
-  }
+  };
 
   // Iterate over each property and reset it to the default value from script properties
-  properties.forEach(function(prop) {
-    var defaultValue = scriptProperties.getProperty(prop);
+  PROPERTIES.forEach(function(prop) {
+    var defaultValue = DEFAULT_SETTINGS[prop];
+
     if (defaultValue) {
       userProperties.setProperty(prop, defaultValue);  // Reset user property to script property value
       setThemeColour_(prop, defaultValue);
@@ -85,7 +81,7 @@ function resetToDefault(sidebar) {
   });
 
   // Optionally alert the user that the properties have been reset
-  ui.alert("Update", 'All settings have been reset to default values.', ui.ButtonSet.OK);
+  //ui.alert("Update", 'All settings have been reset to default values.', ui.ButtonSet.OK);
 
   // Show sidebar if the reset is triggered from the sidebar 
   if (sidebar) {
@@ -127,16 +123,15 @@ function saveColour(dict) {
 
 //Checks if the relevant user properties have been created. If not, take the default ones from the script properties
 function setUpProperties_() {
-  var scriptProperties = PropertiesService.getScriptProperties().getProperties(); // Get the script properties
   var userProperties = PropertiesService.getUserProperties().getKeys();
-  var properties = ["text", "background", "accent1", "accent2", "accent3", "accent4", "accent5", "accent6"]
 
-  for (var property in properties) {
-    // If the user property does not exist, set it to the corresponding value from script properties
+  for (property of PROPERTIES) {
+    // If the user property does not exist, set it to the corresponding value from default properties
     if (!userProperties.includes(property)) {
-      var scriptPropertyValue = scriptProperties[property];
-      if (scriptPropertyValue) {
-        setColourProperty_(property, scriptPropertyValue); // Create the user property and set it to the script property value
+      var defaultPropertyValue = DEFAULT_SETTINGS[property];
+      Logger.log(defaultPropertyValue)
+      if (defaultPropertyValue) {
+        setColourProperty_(property, defaultPropertyValue); // Create the user property and set it to the default property value
       };
     };
   };
