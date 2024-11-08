@@ -1,3 +1,19 @@
+function test() {
+  var userProperties = PropertiesService.getUserProperties().getProperties();
+  var scriptProperties = PropertiesService.getScriptProperties().getProperties();
+
+  Logger.log("------ User -----");
+  Logger.log(userProperties);
+  Logger.log("------ Script ------")
+  Logger.log(scriptProperties)
+
+  setUpProperties_()
+};
+
+function deleteAll () {
+  PropertiesService.getUserProperties().deleteAllProperties();
+}
+
 function onInstall(e) {
   onOpen(e);
 };
@@ -6,98 +22,156 @@ function onInstall(e) {
 function onOpen(e) {
   var ui = SpreadsheetApp.getUi()
     .createAddonMenu()
-    .addItem('Set theme colours', 'setTheme')
+    .addItem('Set theme colours TEST', 'setTheme')
     .addItem('Edit theme colours', 'showSidebar')
+    .addItem('Reset to default', 'resetToDefault')
     .addToUi();
 };
 
-//Runs the sidebar and builds this from the html template. 
+
+/* ---------------------------------------------------------- */
+/* ------------------- MENU FUNCTIONS ----------------------- */
+/* ---------------------------------------------------------- */
+
+
 function showSidebar() {
-  var html = HtmlService.createTemplateFromFile('SideBar')
-  .evaluate()
+  //Runs the sidebar and builds this from the html template. 
+
+  setUpProperties_();
+  var html = HtmlService.createTemplateFromFile('Sidebar')
+    .evaluate()
     .setTitle('Edit colours');
-  SpreadsheetApp.getUi()
-    .showSidebar(html);
+  SpreadsheetApp.getUi().showSidebar(html);
 };
 
-//Pulls the user properties
-//Takes a dictionary as an input with each colour type as the keys and the colour codes (hexidecimal) as the values
 function setTheme() {
-  setUpProperties();
-  sp = PropertiesService.getUserProperties().getProperties();
-  for (key in sp) {
-    setThemeColour(key, sp[key])
+  // Pulls the user properties as an input. It expects this as a dictionary with each colour type as the key and the colour codes (hexidecimal) as the values
+  setUpProperties_();
+  var ui = SpreadsheetApp.getUi();
+
+  var userProperties = PropertiesService.getUserProperties().getProperties();
+  for (var key in userProperties) {
+    setThemeColour_(key, userProperties[key])
   };
-  SpreadsheetApp.getUi() // Or DocumentApp or FormApp.
-    .alert('Succesfully changed the colour scheme!');
+
+  ui.alert('Succesfully changed the theme colours!',ui.ButtonSet.OK);
 };
 
-//Checks if the relevant user properties have been created. If not, they are added so that they can be filled in at a later date.
-function setUpProperties() {
-  var sp = PropertiesService.getUserProperties().getKeys();
-  var properties = ["text", "background", "accent1", "accent2", "accent3", "accent4", "accent5", "accent6"]
-  for (i in properties) {
-    if (sp.includes(properties[i]) === false) {
-      setColourProperty(properties[i], "000000");
-    };
-  };
+function resetToDefault(sidebar) {
+  // Reset the user properties and the document theme to the default (defined by the script properties)
+  var scriptProperties = PropertiesService.getScriptProperties();
+  var userProperties = PropertiesService.getUserProperties();
+  var ui = SpreadsheetApp.getUi();
+
+  // Define the keys you want to reset to their default values
+  var properties = ["text", "background", "accent1", "accent2", "accent3", "accent4", "accent5", "accent6"];
+
+  var confirm = ui.alert("Confirm action", "Are you sure you want to reset your default colours?", ui.ButtonSet.YES_NO)
+
+  if (confirm === ui.Button.NO) {
+    return;
+  }
+
+  // Iterate over each property and reset it to the default value from script properties
+  properties.forEach(function(prop) {
+    var defaultValue = scriptProperties.getProperty(prop);
+    if (defaultValue) {
+      userProperties.setProperty(prop, defaultValue);  // Reset user property to script property value
+      setThemeColour_(prop, defaultValue);
+    } else {
+      // Set default to black if script property is not found
+      userProperties.setProperty(prop, "ffffff");
+    }
+  });
+
+  // Optionally alert the user that the properties have been reset
+  ui.alert("Update", 'All settings have been reset to default values.', ui.ButtonSet.OK);
+
+  // Show sidebar if the reset is triggered from the sidebar 
+  if (sidebar) {
+    showSidebar();
+  }
 };
+
+
+/* ------------------------------------------------------------- */
+/* ------------------- Sidebar FUNCTIONS ----------------------- */
+/* ------------------------------------------------------------- */
+
 
 //Upon saving the colours in the sidebar, the colours are set as the theme colours and then the user properties are updated so that they can be accessed the next time as well.
-function saveColour(list) {
-  var app = SpreadsheetApp;
-  var ss = app.getActiveSpreadsheet();
-  var counter = 0 
+function saveColour(dict) {
+  var ui = SpreadsheetApp.getUi();
+  var counter = 0;
 
-  for (key in list) {
-    if (list[key] != '') {
-      //Update theme colours
-      setThemeColour(key, list[key]);
-      //Update the user properties
-      setColourProperty(key, list[key]);
-      counter += 1
+  for (var key in dict) {
+    if (dict[key] !== '') {  // Only process if there is a non-empty color value
+      // Update theme colors
+      setThemeColour_(key, dict[key]);
+      // Update user properties
+      setColourProperty_(key, dict[key]);
+      counter += 1;
     };
   };
 
-  var alert = SpreadsheetApp.getUi()
-    .alert('Succesfully saved '+counter+' colour(s) and changed the theme!');
-  if (alert == 'OK') { 
-    showSidebar();
+  // Display an alert to the user about the save success
+  ui.alert("Update", 'Successfully saved ' + counter + ' colour(s) and changed the theme!', ui.ButtonSet.OK);
+  showSidebar();
+};
+
+
+/* ------------------------------------------------------------- */
+/* ------------------- SUPPORT FUNCTIONS ----------------------- */
+/* ------------------------------------------------------------- */
+
+
+//Checks if the relevant user properties have been created. If not, take the default ones from the script properties
+function setUpProperties_() {
+  var scriptProperties = PropertiesService.getScriptProperties().getProperties(); // Get the script properties
+  var userProperties = PropertiesService.getUserProperties().getKeys();
+  var properties = ["text", "background", "accent1", "accent2", "accent3", "accent4", "accent5", "accent6"]
+
+  for (var property in properties) {
+    // If the user property does not exist, set it to the corresponding value from script properties
+    if (!userProperties.includes(property)) {
+      var scriptPropertyValue = scriptProperties[property];
+      if (scriptPropertyValue) {
+        setColourProperty_(property, scriptPropertyValue); // Create the user property and set it to the script property value
+      };
+    };
   };
 };
 
 //Sets the colour for each theme. It only updates the passed colour type e.g. 'accent2' with the hexidecimal colour
-function setThemeColour(dtype, colour) {
+function setThemeColour_(dtype, colour) {
   var app = SpreadsheetApp;
   var ss = app.getActiveSpreadsheet();
-  if (dtype == "text") 
-    {ss.getSpreadsheetTheme().setConcreteColor(app.ThemeColorType.TEXT, app.newColor().setRgbColor(colour).build())}
-  else if (dtype == "background") 
-    {ss.getSpreadsheetTheme().setConcreteColor(app.ThemeColorType.BACKGROUND, app.newColor().setRgbColor(colour).build())}
-  else if (dtype == "accent1") 
-    {ss.getSpreadsheetTheme().setConcreteColor(app.ThemeColorType.ACCENT1, app.newColor().setRgbColor(colour).build())}
-  else if (dtype == "accent2") 
-    {ss.getSpreadsheetTheme().setConcreteColor(app.ThemeColorType.ACCENT2, app.newColor().setRgbColor(colour).build())}
-  else if (dtype == "accent3") 
-    {ss.getSpreadsheetTheme().setConcreteColor(app.ThemeColorType.ACCENT3, app.newColor().setRgbColor(colour).build())}
-  else if (dtype == "accent4") 
-    {ss.getSpreadsheetTheme().setConcreteColor(app.ThemeColorType.ACCENT4, app.newColor().setRgbColor(colour).build())}
-  else if (dtype == "accent5") 
-    {ss.getSpreadsheetTheme().setConcreteColor(app.ThemeColorType.ACCENT5, app.newColor().setRgbColor(colour).build())}
-  else if (dtype == "accent6") 
-    {ss.getSpreadsheetTheme().setConcreteColor(app.ThemeColorType.ACCENT6, app.newColor().setRgbColor(colour).build())}
-  else 
-    {Logger.log("Error. Unknown input.")};
+  var color = app.newColor().setRgbColor(colour).build();
+
+  // Dynamically access the theme color type using the dtype
+  var themeColorType = app.ThemeColorType[dtype.toUpperCase()];
+
+  // Check if the color type exists (to avoid errors)
+  if (themeColorType) {
+    ss.getSpreadsheetTheme().setConcreteColor(themeColorType, color);
+  } else {
+    Logger.log(`Error. Unknown input: ${dtype} for ${colour} colour.`);
+  };
 };
 
 //Sets the value for a certain user property (specified by the type and then hexideciaml code)
-function setColourProperty(type,colour) {
+function setColourProperty_(type,colour) {
   sp = PropertiesService.getUserProperties();
   sp.setProperty(type, colour);
 };
 
 //Pulls the value of a certain property
-function getColour(type) {
+function getColour_(type) {
   var property = PropertiesService.getUserProperties().getProperty(type);
+  
+  if(!property) {
+    return "none"
+  }
   return property;
 };
+
