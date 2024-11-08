@@ -87,26 +87,6 @@
         width: 48%;
       }
 
-      /* Loading spinner styles */
-      .loading-container {
-        display: none; /* Initially hidden */
-        text-align: center;
-        margin-top: 20px;
-      }
-
-      .spinner {
-        border: 4px solid rgba(255, 255, 255, 0.3);
-        border-top: 4px solid #4285f4; /* Blue color for the spinner */
-        border-radius: 50%;
-        width: 40px;
-        height: 40px;
-        animation: spin 1s linear infinite;
-      }
-
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
 
     </style>
   </head>
@@ -179,6 +159,17 @@
         <div class="column"><input class="input" id="accent6" type="text" placeholder="<?= getColour_('accent6') ?>"></div>
         <div class="column"><div class="colourbox" style="background-color:#<?= getColour_('accent6') ?>"></div></div>
       </div>
+
+      <!-- Link -->
+      <div class="row">
+        <div class="column">Hyperlink:</div>
+        <div class="column"><input class="input" id="hyperlink" type="text" placeholder="<?= getColour_('hyperlink') ?>"></div>
+        <div class="column"><div class="colourbox" style="background-color:#<?= getColour_('hyperlink') ?>"></div></div>
+      </div>
+    </div>
+
+    <div>
+      <p>After clicking, please wait for the script to work.</p>
     </div>
     
     <!-- Buttons -->
@@ -202,8 +193,9 @@
         var accent4 = document.getElementById("accent4").value.toString(); 
         var accent5 = document.getElementById("accent5").value.toString(); 
         var accent6 = document.getElementById("accent6").value.toString();
+        var hyperlink = document.getElementById("hyperlink").value.toString();
         
-        var fields = [text, background, accent1, accent2, accent3, accent4, accent5, accent6];
+        var fields = [text, background, accent1, accent2, accent3, accent4, accent5, accent6, hyperlink];
         var checker = /^(?:[0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/;
         var counter = 0;
 
@@ -225,7 +217,8 @@
             "accent3": accent3, 
             "accent4": accent4, 
             "accent5": accent5, 
-            "accent6": accent6
+            "accent6": accent6,
+            "hyperlink" : hyperlink
           };
           google.script.run.saveColour(dict);
         }
