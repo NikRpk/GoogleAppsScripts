@@ -8,7 +8,8 @@ You can install the add-on right [here](https://letmegooglethat.com/?q=I+have+no
 
 # Instructions
 
-https://user-images.githubusercontent.com/49123781/208134312-17e61bf2-82c8-44dc-b9f6-7e2398607dcc.mov
+<img width="547" alt="caea7849-4dec-41b4-8317-f7f1c9aa244f" src="https://github.com/user-attachments/assets/2160e007-faca-41ef-b117-f8c2a7955072">
+
 
 
 # Frequently Asked Questions 
