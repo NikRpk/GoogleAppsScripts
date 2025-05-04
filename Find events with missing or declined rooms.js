@@ -6,14 +6,20 @@ WHY:
 
 SOLUTION:
   * This script will check whether future events have meeting rooms that have declined or if events have people invited without a meeting room. 
+
+INSTRUCTIONS: 
+  * You can enable or disable that the script looks for 1) meetings with declined rooms or 2) events with missing rooms.
   * Edit the constants at the start of the script to customise the settings. 
+  * Edit the script URL if you want the link to work. 
 
 */
 
+const CHECK_DECLINED_ROOMS = true;       // Set to false to skip checking for declined room events
+const CHECK_MISSING_ROOMS = true;        // Set to false to skip checking for events missing a room
 
 const DAYS_INTO_THE_FUTURE = 14;    // How many days into the future should the script scan. 
 const MINIMUM_GUEST_NUMBER = 2;     // Only scan for events missing a room that have a minimum of X people invited
-const SCRIPT_URL = 'YOUR_LINK'; // Update this to your own script link
+const SCRIPT_URL = 'https://script.google.com/home/projects/SCRIPT_ID/edit'; // Update this to your own script link
 
 function findDeclinedRoomEventsAndEmail() {
   let calendar = CalendarApp.getDefaultCalendar();
@@ -31,7 +37,7 @@ function findDeclinedRoomEventsAndEmail() {
     let roomGuests = guests.filter(g => isRoomResource(g.getEmail()));
 
     // Collect declined room events
-    if (roomGuests.length > 0) {
+    if (CHECK_DECLINED_ROOMS && roomGuests.length > 0) {
       let allRoomsDeclined = roomGuests.every(g =>
         g.getGuestStatus() === CalendarApp.GuestStatus.NO
       );
@@ -46,6 +52,7 @@ function findDeclinedRoomEventsAndEmail() {
 
     // Collect events owned by user, with 2+ guests, and no room
     if (
+      CHECK_MISSING_ROOMS &&
       event.getCreators().includes(userEmail) &&
       guests.length >= MINIMUM_GUEST_NUMBER &&
       roomGuests.length === 0
