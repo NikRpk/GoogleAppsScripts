@@ -1,5 +1,19 @@
-const DAYS_INTO_THE_FUTURE = 14;
-const SCRIPT_URL = 'https://script.google.com/home/projects/1AztX3pTCO-XGvgllsMN0Rsf17c-pAbnGtA_cFrABnsD6udUNpueZKwmS/edit';
+/** 
+
+WHY:
+  * A problem that I often face is that I forget to add a meeting room to an event or that a meeting room has declined after adding it (for whatever reason). 
+  * Therefore, I want a script that will scan my future events and send me reminders if this is the case. 
+
+SOLUTION:
+  * This script will check whether future events have meeting rooms that have declined or if events have people invited without a meeting room. 
+  * Edit the constants at the start of the script to customise the settings. 
+
+*/
+
+
+const DAYS_INTO_THE_FUTURE = 14;    // How many days into the future should the script scan. 
+const MINIMUM_GUEST_NUMBER = 2;     // Only scan for events missing a room that have a minimum of X people invited
+const SCRIPT_URL = 'YOUR_LINK'; // Update this to your own script link
 
 function findDeclinedRoomEventsAndEmail() {
   let calendar = CalendarApp.getDefaultCalendar();
@@ -33,7 +47,7 @@ function findDeclinedRoomEventsAndEmail() {
     // Collect events owned by user, with 2+ guests, and no room
     if (
       event.getCreators().includes(userEmail) &&
-      guests.length >= 2 &&
+      guests.length >= MINIMUM_GUEST_NUMBER &&
       roomGuests.length === 0
     ) {
       userOwnedEventsWithoutRoom.push({
