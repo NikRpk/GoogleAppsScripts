@@ -73,7 +73,7 @@ function findDeclinedRoomEventsAndEmail() {
   // Send email if we found anything
   if (declinedEvents.length > 0 || userOwnedEventsWithoutRoom.length > 0) {
     let html = buildEmailBody(declinedEvents, userOwnedEventsWithoutRoom);
-    let subject = `⚠️ Meeting room summary: (${declinedEvents.length} declined, ${userOwnedEventsWithoutRoom.length} missing rooms)`;
+    let subject = `Meeting room summary: (${declinedEvents.length} declined, ${userOwnedEventsWithoutRoom.length} missing rooms)`;
 
     GmailApp.sendEmail(userEmail, subject, '', {
       htmlBody: html
@@ -105,6 +105,7 @@ function buildEmailBody(declinedEvents, missingRoomEvents) {
   `).join('');
 
   return `
+    <p>Good morning!<p>
     <h3>Events with declined rooms:</h3>
     ${declinedEvents.length > 0 ? `
     <table border="1" cellpadding="6" cellspacing="0" style="border-collapse: collapse;">
