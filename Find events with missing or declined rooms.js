@@ -12,6 +12,11 @@ INSTRUCTIONS:
   * Edit the constants at the start of the script to customise the settings. 
   * Edit the script URL if you want the link to work. 
 
+INSTALLATION: 
+  * Create a Google Apps script in your Google Drive Folder. 
+  * Paste this code and click run at the top. 
+  * Add a trigger for this script to run automatically (recommeded once a day)
+
 */
 
 const CHECK_DECLINED_ROOMS = true;       // Set to false to skip checking for declined room events
