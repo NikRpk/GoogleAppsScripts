@@ -14,7 +14,8 @@ INSTRUCTIONS: 
 
 INSTALLATION: 
   * Create a Google Apps script in your Google Drive Folder. 
-  * Paste this code. Select "createDailyTrigger" at the top (very likely that this is already preselected). 
+  * Paste this code. Update the settings (like SCRIPT_URL and WEEKDAYS_ONLY). 
+  * Select "createDailyTrigger" at the top (very likely that this is already preselected). 
   * Click save (small save icon) at the top. 
   * Click run at the top. This will create the trigger so that the script runs every morning between 06:00 and 07:00.
   * Accept all the popups coming up asking to accept permissions. 
