@@ -1,5 +1,7 @@
 /** 
 
+INSTALL VIDEO: https://drive.google.com/file/d/1RW_lUNJFlkyOpOog92XgRSSALlCg60kP/view?usp=sharing
+
 PROBLEM:
   * A problem that I often face is that I forget to add a meeting room to an event or that a meeting room has declined after adding it (for whatever reason). 
   * Therefore, I want a script that will scan my future events and send me reminders if this is the case. 
