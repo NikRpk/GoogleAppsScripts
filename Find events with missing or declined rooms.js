@@ -15,20 +15,23 @@ INSTRUCTIONS: 
 INSTALLATION: 
   * Create a Google Apps script in your Google Drive Folder. 
   * Paste this code. Select "createDailyTrigger" at the top (very likely that this is already preselected). 
+  * Click save (small save icon) at the top. 
   * Click run at the top. This will create the trigger so that the script runs every morning between 06:00 and 07:00.
   * Accept all the popups coming up asking to accept permissions. 
   * Verify that you got your first email.
 
 */
 
+// SETTINGS
 const CHECK_DECLINED_ROOMS = true;      // Set to false to skip checking for declined room events
 const CHECK_MISSING_ROOMS = true;       // Set to false to skip checking for events missing a room
 
 const DAYS_INTO_THE_FUTURE = 14;    // How many days into the future should the script scan. 
 const MINIMUM_GUEST_NUMBER = 2;     // Only scan for events missing a room that have a minimum of X people invited (includes organizer)
 const SCRIPT_URL = 'https://script.google.com/home/projects/1AztX3pTCO-XGvgllsMN0Rsf17c-pAbnGtA_cFrABnsD6udUNpueZKwmS/edit'; // Update this to the link of this page
+const WEEKDAYS_ONLY = true;
 
-
+// Installing the trigger (only needed once)
 function createDailyTrigger() {
   // Delete any existing triggers for the function (optional, but good practice)
   const triggers = ScriptApp.getProjectTriggers();
@@ -43,15 +46,23 @@ function createDailyTrigger() {
       .timeBased()
       .atHour(6) // You can adjust this if you want it to run anytime between 6 and 7
       .everyDays(1)
-      .onWeekdays() // Only run during the week
       .create();
 
   Logger.log('Daily trigger set to run at 6 AM.');
   findDeclinedRoomEventsAndEmail();
 };
 
+// The script that checks for the missing rooms
 function findDeclinedRoomEventsAndEmail() {
   let now = new Date();
+  let dayOfWeek = now.getDay(); // Sunday is 0, Monday is 1, ..., Saturday is 6
+
+  // Check if it's a weekend (Saturday or Sunday)
+  if (dayOfWeek === 0 || dayOfWeek === 6 || WEEKDAYS_ONLY === true) {
+    Logger.log('Today is a weekend. Skipping meeting room check.');
+    return; // Exit the function if it's a weekend
+  };
+
   let calendar = CalendarApp.getDefaultCalendar();
   let future = new Date(now);
   future.setDate(future.getDate() + DAYS_INTO_THE_FUTURE);
