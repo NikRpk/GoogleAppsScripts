@@ -58,7 +58,7 @@ function findDeclinedRoomEventsAndEmail() {
   let dayOfWeek = now.getDay(); // Sunday is 0, Monday is 1, ..., Saturday is 6
 
   // Check if it's a weekend (Saturday or Sunday)
-  if (dayOfWeek === 0 || dayOfWeek === 6 || WEEKDAYS_ONLY === true) {
+  if ((dayOfWeek === 0 || dayOfWeek === 6) && WEEKDAYS_ONLY === true) {
     Logger.log('Today is a weekend. Skipping meeting room check.');
     return; // Exit the function if it's a weekend
   };
