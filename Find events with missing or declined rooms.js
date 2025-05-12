@@ -25,10 +25,19 @@ const CHECK_MISSING_ROOMS = true;        // Set to false to skip checking for ev
 const DAYS_INTO_THE_FUTURE = 14;    // How many days into the future should the script scan. 
 const MINIMUM_GUEST_NUMBER = 2;     // Only scan for events missing a room that have a minimum of X people invited
 const SCRIPT_URL = 'https://script.google.com/home/projects/SCRIPT_ID/edit'; // Update this to your own script link
+const WEEK_ONLY = true;             // Only run during the week and not weekends. 
 
 function findDeclinedRoomEventsAndEmail() {
-  let calendar = CalendarApp.getDefaultCalendar();
   let now = new Date();
+  let dayOfWeek = now.getDay(); // Sunday is 0, Monday is 1, ..., Saturday is 6
+
+  // Check if it's a weekend (Saturday or Sunday)
+   if (dayOfWeek === 0 || dayOfWeek === 6) {
+     Logger.log('Today is a weekend. Skipping meeting room check.');
+     return; // Exit the function if it's a weekend
+   }
+
+  let calendar = CalendarApp.getDefaultCalendar();
   let future = new Date(now);
   future.setDate(future.getDate() + DAYS_INTO_THE_FUTURE); // Look 14 days ahead
 
