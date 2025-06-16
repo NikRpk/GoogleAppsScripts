@@ -5,7 +5,8 @@ This is a mini tool that copies events from one calendar into another one. This 
 ---- Instructions ----
 1. Create a new Apps Script.
 2. Please copy the contents of the sync.js file into that file.
-3. Set a trigger to run this script every few minutes (would suggest 10 mins).
+3. Update the calendar IDs (To find your Google Calendar ID, open your Google Calendar, navigate to "My Calendars", select the desired calendar, and then go to "Settings and Sharing". Under "Integrate calendar", you'll find the "Calendar ID", which is typically an email address associated with your calendar.)
+4. Set a trigger to run this script every few minutes (would suggest 10 mins).
 */
 
 
@@ -54,7 +55,7 @@ function sync() {
 
       if (evi.isAllDayEvent()) continue;
       
-      if (n==1 || n==2 || n==3 || n==4 || n==5 || n==6 || n==7 ) // skip weekends. Delete this if you want to include weekends
+      if (n==1 || n==2 || n==3 || n==4 || n==5 || n==6 || n==7 ) // Remove certain days if you don't want them to be checked (e.g. weekends). 1 is Sunday
       {
         Logger.log("new event")
         var newEvent = primaryCal.createEvent('Block / Personal',evi.getStartTime(),evi.getEndTime()); // change the Booked text to whatever you would like your merged event titles to be
