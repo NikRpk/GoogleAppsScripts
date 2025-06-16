@@ -19,8 +19,39 @@ Complete tools and addons can be found each folder in this repository. I try to 
   - Contact person in case of errors (can also be a help button)
 - _dropdowns
 	- As a source for all dynamic dropdowns used in the sheet
- 	- One column for each dropdown so it can be automatically extended 
+ 	- One column for each dropdown so it can be automatically extended
 
+**Button:** Runs a script
+- Dimensions: 55mm wide, 15mm high
+- Colour: background white
+- Shape: rounded rectangle
+- Border:
+	- Thickness: 3px
+	- Colour: #b7b7b7
+- Icon:
+	- Shape: square
+	- Size: 10mm
+	- Location: start 2.5mm width
+- Text box:
+	- Size: width (start 15mm, end 55mm), height 15mm
+ 	- Font size: 10
+ 	- Font family: Arial
+  	- Alignment: Vertically center text	
+ 
+***Sample Size***
+
+<img width="217" alt="image" src="https://github.com/user-attachments/assets/66845bb2-8b0c-488d-8a37-82d4a9863bd4" />
+
+***Example***
+
+<img width="441" alt="image" src="https://github.com/user-attachments/assets/97cb9263-30e3-4434-84bf-1160c962e8e9" />
+
+
+
+
+
+
+## Old Design Guidelines
 **Main Button:** Runs the main script
 - Dimensions: 4.5cm wide and 1.5cm long
 - Colour: #009646 with white lines.
