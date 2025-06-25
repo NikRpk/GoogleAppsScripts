@@ -1,3 +1,7 @@
+/**
+ * Highlights the difference between two different sheets by marking them in yellow. 
+ * It is not the fastest script when that sheets are large (10,000 cells +). 
+ */
 function highlightDifferencesBetweenSheets() {
   const ss = SpreadsheetApp.getActiveSpreadsheet();
   const sheet1 = ss.getSheetByName("SHEET_1"); // Change as needed
