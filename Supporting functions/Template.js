@@ -1,8 +1,8 @@
 /**
- * getFormattedDate    
- * getColIndex
- * getRequiredSheet
- *
+ * getFormattedDate        Get the current date. You can pass a format to the function if needed, otherwise it defaults to just the day    
+ * getColIndex             Get the column index of a named column out of a 2D array
+ * getRequiredSheet        Get a sheet based on the sheet name. Checks if it exists. 
+ * openSlackChannel        Open a redirect to a support slack channel
  * 
  */
 
