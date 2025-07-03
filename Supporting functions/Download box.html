@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      /* Import Google's Roboto font */
+      @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&display=swap');
+      
+      /* --- Global Styles --- */
+      body {
+        font-family: 'Roboto', sans-serif;
+        margin: 0;
+        padding: 24px;
+        background-color: #fff;
+        color: #3c4043; /* Google's standard body text color */
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* --- Dialog Structure --- */
+      .dialog-content {
+        font-size: 1rem; /* 16px */
+        line-height: 1.5;
+        margin: 0 0 24px 0; /* Ensures consistent spacing */
+      }
+      
+      .dialog-actions {
+        display: flex;
+        justify-content: flex-end; /* Align buttons to the right */
+        gap: 8px; /* Space between buttons */
+      }
+
+      /* --- Material Design Button Styles --- */
+      .mdc-button {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        height: 36px;
+        padding: 0 16px;
+        border: none;
+        border-radius: 4px;
+        font-family: 'Roboto', sans-serif;
+        font-size: 0.875rem; /* 14px */
+        font-weight: 500;
+        text-transform: uppercase;
+        text-decoration: none;
+        cursor: pointer;
+        outline: none;
+        transition: box-shadow 0.28s cubic-bezier(0.4, 0, 0.2, 1), background-color 0.2s;
+      }
+      
+      /* Contained Button Style (for primary action) */
+      .mdc-button--contained {
+        background-color: #1a73e8; /* Google Blue */
+        color: white;
+        box-shadow: 0 1px 2px 0 rgba(60,64,67,0.3), 0 1px 3px 1px rgba(60,64,67,0.15);
+      }
+      .mdc-button--contained:hover {
+        background-color: #287ae6;
+        box-shadow: 0 1px 3px 1px rgba(60,64,67,0.3), 0 2px 5px 2px rgba(60,64,67,0.15);
+      }
+      .mdc-button--contained:active {
+         background-color: #3b82f6;
+         box-shadow: 0 4px 5px 0 rgba(0,0,0,0.14), 0 1px 10px 0 rgba(0,0,0,0.12), 0 2px 4px -1px rgba(0,0,0,0.2);
+      }
+
+      /* Text Button Style (for secondary/close action) */
+      .mdc-button--text {
+        background-color: transparent;
+        color: #1a73e8;
+      }
+      .mdc-button--text:hover {
+        background-color: rgba(26, 115, 232, 0.04);
+      }
+       .mdc-button--text:active {
+        background-color: rgba(26, 115, 232, 0.12);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- The title is handled by the .showModalDialog() call in your Apps Script -->
+    
+    <!-- Use a generic scriplet for the main message -->
+    <p class="dialog-content"><?!= msg ?></p>   <!-- The ! is needed to enable passing along HTML code in the messages such as <br> -->
+    
+    <div class="dialog-actions">
+      <button class="mdc-button mdc-button--text" onclick="google.script.host.close()">Close</button>
+      
+      <!-- Use a scriplet for the link's href -->
+      <a href="<?= folderUrl ?>" target="_blank" class="mdc-button mdc-button--contained" onclick="google.script.host.close()">Open Folder</a>
+    </div>
+  </body>
+</html>
